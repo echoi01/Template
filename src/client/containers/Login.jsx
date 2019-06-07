@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
-const mapStateToProps = store => ({
-  isLoggedIn: store.login.isLoggedIn
-});
-
-const mapDispatchToProps = dispatch => ({
-  setIsLoggedIn: bool => dispatch(actions.setIsLoggedIn(bool)),
-  setLoginSignupToggle: bool => dispatch(actions.setLoginSignupToggle(bool))
-});
-
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +35,14 @@ export class Login extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+
+const mapStateToProps = store => ({
+  isLoggedIn: store.login.isLoggedIn
+});
+
+const mapDispatchToProps = dispatch => ({
+  setIsLoggedIn: bool => dispatch(actions.setIsLoggedIn(bool)),
+  setLoginSignupToggle: bool => dispatch(actions.setLoginSignupToggle(bool))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

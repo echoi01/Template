@@ -4,7 +4,7 @@ import gameReducer from './gameReducer';
 
 const reducers = combineReducers({
   login: loginReducer,
-  game: gameReducer
+  // game: gameReducer
 });
 
 export default reducers;

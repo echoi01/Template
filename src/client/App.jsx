@@ -12,6 +12,9 @@ import * as actions from './actions/actions';
 export class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isLogin: false,
+    }
   }
 
   // LifeCycles
@@ -38,9 +41,9 @@ export class App extends Component {
         <input name="keyCapture" type="text" onChange={this.handleKeystroke} />
         <input name="joinRoom" type="button" value="Join Room" onClick={this.joinRoom} />
         <input name="leaveRoom" type="button" value="Leave Room" onClick={this.leaveRoom} />
-        <h1>Crypto Portfolio Fantasy</h1>
+        <h1>Login Main Page</h1>
         <div>
-          {this.props.loginSignupToggle 
+          {this.state.isLogin 
             ? <Login /> 
             : <Signup />}
         </div>
@@ -51,7 +54,7 @@ export class App extends Component {
 
 
 const mapStateToProps = store => ({
-  // isLoggedIn: store.login.isLoggedIn,
+  isLoggedIn: store.login.isLoggedIn,
   // loginSignupToggle: store.login.loginSignupToggle
 });
 

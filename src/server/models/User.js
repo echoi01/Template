@@ -3,11 +3,11 @@ const db = require('./../DB/index.js');
 
 const userModel = {};
 
-userModel.createUser = function(user, password) {
+userModel.createUser = function(username, password) {
 	return db.oneOrNone(
     'INSERT INTO users (username, password_digest, wpm_avg, completed_races) VALUES ($1, $2, $3, $4) RETURNING *;',
     // all users should start with 0 wpm/completed races
-		[user, password, 0, 0]
+		[username, password, 0, 0]
 	);
 };
 
