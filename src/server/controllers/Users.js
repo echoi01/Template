@@ -14,6 +14,7 @@ module.exports = {
         next()
       })
       .catch(err => console.log('Error creating user ', err));
+      // handle errors / validation for user creation and send back appropriate error to be caught by client.
   },
 
   verifyUserMiddleware: function(req, res, next) {
@@ -21,6 +22,7 @@ module.exports = {
     User.findUser(req.body.username)
       .then(user => {
         if (bcrypt.compareSync(req.body.password, user.password_digest))
+          console.log("this is the result of bcrypt comparesync", bcrypt.compareSync(req.body.password, user.password_digest))
           res.locals.newTokenData = user.username;
           next();
       })

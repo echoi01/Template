@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import socketIOClient from 'socket.io-client';
+import { BrowserRouter as Router } from 'react-router-dom';
 // const io = socketIOClient('http://localhost:3333/lobby');
+
 
 // import './app.css';
 import Login from './containers/Login.jsx';
 import Signup from './containers/Signup.jsx';
+import Home from './containers/Home.jsx';
 import * as actions from './actions/actions';
 
 
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLogin: false,
-    }
   }
 
   // LifeCycles
   componentDidMount() {
     // io.on('broadcast', msg => console.log(msg));
+    console.log("hitting component did mount");
+
   }
 
   joinRoom = () => {
@@ -35,19 +37,27 @@ export class App extends Component {
     io.emit('keystroke', event.target.value);
   }
 
+  verifyToken = () => {
+
+  }
+
+  generateLoginField = () => {
+  const { loginSignupToggle } = this.props;
+    return loginSignupToggle ? <Login /> : <Signup />;
+  }
+
   render() {
+    const { currentUser } = this.props;
     return (
-      <div id="app-container">
-        <input name="keyCapture" type="text" onChange={this.handleKeystroke} />
-        <input name="joinRoom" type="button" value="Join Room" onClick={this.joinRoom} />
-        <input name="leaveRoom" type="button" value="Leave Room" onClick={this.leaveRoom} />
-        <h1>Login Main Page</h1>
-        <div>
-          {this.state.isLogin 
-            ? <Login /> 
-            : <Signup />}
-        </div>
-      </div>
+      <React.Fragment>
+        <input type="text" onChange={this.handleKeystroke} />
+        <input type="button" value="Join Room" onClick={this.joinRoom} />
+        <input type="button" value="Leave Room" onClick={this.leaveRoom} />
+        { currentUser
+          ? <Home />
+          : this.generateLoginField()
+        }
+      </React.Fragment>
     );
   }
 }
@@ -55,7 +65,8 @@ export class App extends Component {
 
 const mapStateToProps = store => ({
   isLoggedIn: store.login.isLoggedIn,
-  // loginSignupToggle: store.login.loginSignupToggle
+  loginSignupToggle: store.login.loginSignupToggle,
+  currentUser: store.login.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({

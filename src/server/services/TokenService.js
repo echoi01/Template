@@ -21,7 +21,7 @@ class Token {
   checkAuth(req, res, next) {
     try {
       const token = req.headers.authorization.split(" ")[1];
-      console.log(token);
+      console.log("this is the jwt token being verified", token);
       const decoded = jwt.verify(token, process.env.SECRET)
       req.userData = decoded;
       next();
@@ -57,6 +57,7 @@ class Token {
       (err, jwt) => {
         if (err) console.error('Error in TokenService.createToken:', err);
         res.locals.token = jwt;
+        console.log("this is jwt", jwt);
         next();
       }
     );

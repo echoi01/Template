@@ -1,15 +1,54 @@
 import * as types from '../constants/actionTypes';
+import axios from 'axios';
 
-// login/signup actions
+// LOGIN SIGNUP actions
+// Toggles
 export const setIsLoggedIn = bool => ({
   type: types.SET_IS_LOGGED_IN,
   payload: bool
 });
-
 export const setLoginSignupToggle = bool => ({
   type: types.SET_LOGIN_SIGNUP_TOGGLE,
   payload: bool
 });
+
+// 
+export const userSignUp = user => {
+  return dispatch => {
+    axios.post('/signUp', {
+      username: user.username,
+      password: user.password,
+    })
+      .then(function (response) {
+        localStorage.setItem("token", response.data.token)
+        dispatch(loginUser(user))
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+}
+
+export const userLogIn = user => {
+  return dispatch => {
+    axios.post('/logIn', {
+      username: user.username,
+      password: user.password,
+    })
+      .then(function (response) {
+        localStorage.setItem("token", response.token)
+        dispatch(loginUser(user))
+      })
+      .catch(function (error) {
+        console.log("username or password incorrect please try again");
+      });
+  }
+}
+
+const loginUser = userObj => ({
+  type: 'LOGIN_USER',
+  payload: userObj
+})
 
 // game actions
 export const addPrompt = (str) => ({

@@ -59,7 +59,14 @@ app.post('/signUp',
   Token.createToken,
   Token.sendToken);
 
-app.post('/login', UserController.verifyUserMiddleware, Token.createToken, Token.sendToken);
+app.post('/login',
+  UserController.verifyUserMiddleware,
+  Token.createToken,
+  Token.sendToken);
+
+app.get('/secure_main', (req, res) => {
+  res.sendFile()
+})
 
 app.get('/getRandomPrompt', PromptController.getRandom);
 

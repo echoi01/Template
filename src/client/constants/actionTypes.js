@@ -1,6 +1,9 @@
 // login reducer
 export const SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN';
 export const SET_LOGIN_SIGNUP_TOGGLE = 'SET_LOGIN_SIGNUP_TOGGLE';
+export const USER_SIGN_UP = 'USER_SIGN_UP';
+export const USER_LOG_IN = 'USER_LOG_IN';
+export const LOGIN_USER = 'LOGIN_USER';
 
 // game reducer
 export const ADD_PROMPT = 'ADD_PROMPT';

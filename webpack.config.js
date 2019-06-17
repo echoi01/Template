@@ -33,7 +33,7 @@ module.exports = {
     port: 8888, // webpack-dev-server
     open: true, // automatically open homepage on startup toggle
     proxy: {
-      '/': 'http://localhost:3333' // Express server to send API requests to
+      '/': 'http://localhost:4000' // Express server to send API requests to
     }
   },
   plugins: [
